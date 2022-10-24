@@ -1,0 +1,51 @@
+version: "3"
+services:
+  MYWEB:
+    image: "nginx:latest"
+    ports:
+     - "1111:80"
+     - "222:22"
+    environment:
+     - Name=Ahmad_Khalaf
+     - Age=30
+     - Company=Amazon
+
+    container_name: "test"
+    extra_hosts:
+     - "sw1:10.10.10.100"
+     - "sw2:120.20.20.100"
+    networks:
+     - wan_network
+     - alpine-network
+    dns:
+     - "8.8.8.8"
+     - "3.3.3.3"
+
+    hostname: "Linx_Web"
+    volumes:
+     - volume1:/var/www/html
+
+  alpine:
+    image: "alpine"
+    hostname: "alpine-test"
+    networks:
+     - alpine-network
+    environment:
+     - COMPANY=Amazon
+    container_name: "hh"
+    volumes:
+     - hh:/home
+    tty: "true"
+
+
+networks:
+ wan_network:
+  external: "true"
+
+ alpine-network:
+  external: "true"
+
+volumes:
+  volume1:
+    external: "true"
+  hh:
